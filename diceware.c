@@ -9,6 +9,7 @@ int genKey(); //Returns the number of words as a string
 
 int main(int argc, char *argv[]){
   int diceNumList[7776];
+  //char diceWordList[66666][10]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
   char diceWordList[7776][10]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
   int i,x,c,keyVal,words;
   i=x=c=keyVal=0;
@@ -27,12 +28,14 @@ int main(int argc, char *argv[]){
     fscanf(infile,"%d %s",&diceNumList[i],(char *)&diceWordList[i]);
   }
 
+  srand(time(NULL)); //Using clock time as the SEED to generate random words using C's PRNG implementation
   printf("Number of words requested was %d\n",words);
   printf("Passphrase: ");
   /*loop enough times per # of words requested*/
   for(c=0;c<words;c++){ //Generate the words based on the number of words wanted
     keyVal = genKey(); //Generate the key value
-    for(x=0;x<(sizeof(diceNumList)/4);x++){
+    for(x=0;x<MAX_WORDS;x++){
+      //  printf("key value is %d\n",keyVal);
       if(diceNumList[x] == keyVal){ //If the index contains the key value
         printf(" %s ",diceWordList[x]); //Print the char array index that contains the string
       }
@@ -53,8 +56,8 @@ int genKey(){
 
   for(x=0;x<DICE_ROLLS;x++){
     number[x] = '0' + (rand()%(max-min)+min); //Take an integer value and add 0 to it, to make it it's ascii representation
+    //printf("%d",rand()%(max-min)+min);
   }
-
   sscanf(number,"%d",&key);
   return key;
 }
