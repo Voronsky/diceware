@@ -3,43 +3,33 @@
 #include <string.h>
 
 #define MAX_WORDS 7776
+#define DICE_ROLLS 5 //diceware method uses 5 die rolls to get 5 different numbers 1-6
 
 int genKey(); //Returns the number of words as a string
 
 int main(int argc, char *argv[]){
-  //int words = (int)*argv[2];
-  //char input_line[16];
-  char *token;
-  char input_line2[16];
-  //int diceWordList[7776][2];
   int diceNumList[7776];
   char diceWordList[7776][10]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
   int i,x,c,keyVal,words;
-  words=i=x=c=keyVal=0;
+  i=x=c=keyVal=0;
 
   FILE *infile = NULL;
-  //words = (int)*argv[2];
   infile=fopen(argv[1],"r");
+  sscanf(argv[2],"%d",&words);
 
-  if(infile == NULL){
-    printf("Usage: ./diceware <input file> <# of words to generate>\n");
+  //Check to see if an argument is NULL or missing
+  if(infile == NULL || words <= 0){
+    printf("Usage: ./diceware <input file.txt> <# of words to generate>\n");
     return (1);
   }
+
   for(i=0;i<MAX_WORDS;i++){
     fscanf(infile,"%d %s",&diceNumList[i],(char *)&diceWordList[i]);
-    // strcpy(diceWordList[i],token);
-    //token = strtok(NULL,"\n");
   }
 
-  /*DEBUG
-  for(x=0;x<7;x++){
-    printf("%d %s\n",diceNumList[x],diceWordList[x]);
-  }*/
-  sscanf(argv[2],"%d",&words);
   printf("Number of words requested was %d\n",words);
-  //keyVal = genKey();
-  printf("debug, the num generated %d\n",keyVal);
   printf("Passphrase: ");
+  /*loop enough times per # of words requested*/
   for(c=0;c<words;c++){ //Generate the words based on the number of words wanted
     keyVal = genKey(); //Generate the key value
     for(x=0;x<(sizeof(diceNumList)/4);x++){
@@ -55,18 +45,16 @@ int main(int argc, char *argv[]){
 
 int genKey(){
 
-  char number[5];
+  char number[5]; //5 bytes to hold a byte per number generated from the 'die' roll
   int m,x,max,min,key;
-  max = 6;
-  min = 1;
-  key = 0;
+  max = 6; //up to number 6, six sided die
+  min = 1; //lowest number is 1
+  key = 0; 
 
-  for(x=0;x<5;x++){
+  for(x=0;x<DICE_ROLLS;x++){
     number[x] = '0' + (rand()%(max-min)+min); //Take an integer value and add 0 to it, to make it it's ascii representation
   }
 
-  //  printf("This is the string in number %s\n",number);
   sscanf(number,"%d",&key);
-  // printf("THIS IS KEY VAL %d\n",key);
   return key;
 }
