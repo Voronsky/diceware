@@ -6,5 +6,5 @@ My implementation of diceware
 
 <p>Inspiration comes from this article from threatpost</p>
 <url> https://firstlook.org/theintercept/2015/03/26/passphrases-can-memorize-attackers-cant-guess/ </url> </br>
-More about diceware implementation 
+More about diceware implementation </br>
 <url>http://world.std.com/~reinhold/diceware.html</url>
