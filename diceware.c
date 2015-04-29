@@ -6,7 +6,7 @@
 #define DICE_ROLLS 5 //diceware method uses 5 die rolls to get 5 different numbers 1-6
 #define WORD_LENGTH
 
-int genKey(); //Returns the number of words as a string
+int genKey(); //Returns the keyvalue to be used
 
 int main(int argc, char *argv[]){
   int diceNumList[MAX_WORDS];
