@@ -4,7 +4,7 @@
 
 #define MAX_WORDS 7776
 #define DICE_ROLLS 5 //diceware method uses 5 die rolls to get 5 different numbers 1-6
-#define WORD_LENGTH
+#define WORD_LENGTH 11
 
 int genKey(); //Returns the keyvalue to be used
 
