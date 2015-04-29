@@ -4,13 +4,14 @@
 
 #define MAX_WORDS 7776
 #define DICE_ROLLS 5 //diceware method uses 5 die rolls to get 5 different numbers 1-6
+#define WORD_LENGTH
 
 int genKey(); //Returns the number of words as a string
 
 int main(int argc, char *argv[]){
-  int diceNumList[7776];
+  int diceNumList[MAX_WORDS];
   //char diceWordList[66666][10]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
-  char diceWordList[7776][10]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
+  char diceWordList[DICE_ROLLS][WORD_LENGTH]; //7776 indexes, 5 chars for the 5 digits, 10 size length char for the possible word to be retrieved
   int i,x,c,keyVal,words;
   i=x=c=keyVal=0;
 
@@ -56,7 +57,6 @@ int genKey(){
 
   for(x=0;x<DICE_ROLLS;x++){
     number[x] = '0' + (rand()%(max-min)+min); //Take an integer value and add 0 to it, to make it it's ascii representation
-    //printf("%d",rand()%(max-min)+min);
   }
   sscanf(number,"%d",&key);
   return key;
